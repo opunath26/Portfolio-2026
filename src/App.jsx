@@ -1,0 +1,1027 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import './App.css';
+import skillPathImg from './assets/project1.png';
+import appOrbitImg from './assets/project2.png';
+import warmPawsImg from './assets/project3.png';
+import emailjs from '@emailjs/browser';
+
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
+
+const App = () => {
+  const [isDark, setIsDark] = useState(true);
+
+  const toggleDarkMode = () => {
+    setIsDark(!isDark);
+  };
+
+  return (
+    <div className={`${isDark ? 'dark' : ''}`}>
+      <div className="relative bg-gradient-to-br from-purple-900 dark:from-purple-950 via-pink-900 dark:via-pink-950 to-indigo-900 dark:to-indigo-950 min-h-screen overflow-x-hidden font-sans text-slate-900 dark:text-gray-200 antialiased transition-colors duration-300">
+        
+        {/* Floating Glass Shapes Background */}
+        <FloatingGlassShapes />
+        
+        {/* Custom Cursor */}
+        <CustomCursor />
+        
+        {/* Glass Header */}
+        <Header />
+        
+        {/* Main Content */}
+        <main className="z-10 relative mx-auto px-6 w-full max-w-7xl">
+          <HeroSection />
+          <AboutSection />
+          <SkillsSection />
+          <PortfolioSection />
+          <ContactSection />
+        </main>
+        
+        {/* Footer */}
+        <Footer />
+        
+        {/* Dark Mode Toggle */}
+        <MagneticButton 
+          className="right-6 bottom-6 z-50 fixed bg-white/10 hover:bg-white/20 shadow-lg backdrop-blur-md p-4 border border-white/20 rounded-full text-white transition-all duration-300"
+          onClick={toggleDarkMode}
+        >
+          <span className={`${isDark ? 'hidden' : 'block'} material-icons-round`}>dark_mode</span>
+          <span className={`${isDark ? 'block' : 'hidden'} material-icons-round`}>light_mode</span>
+        </MagneticButton>
+      </div>
+    </div>
+  );
+};
+
+// Floating Glass Shapes Background Component
+const FloatingGlassShapes = () => {
+  const shapesRef = useRef([]);
+
+  useEffect(() => {
+    const shapes = shapesRef.current;
+    
+    shapes.forEach((shape, index) => {
+      if (shape) {
+        // Different parallax speeds for each shape
+        const speed = 0.5 + (index * 0.3);
+        
+        // Floating animation
+        gsap.to(shape, {
+          y: -30,
+          duration: 3 + index,
+          ease: "power2.inOut",
+          yoyo: true,
+          repeat: -1
+        });
+
+        // Parallax scroll effect
+        gsap.to(shape, {
+          yPercent: -50 * speed,
+          ease: "none",
+          scrollTrigger: {
+            trigger: shape,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true
+          }
+        });
+      }
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, []);
+
+  return (
+    <div className="z-0 fixed inset-0 pointer-events-none">
+      {/* Glass Sphere 1 */}
+      <div
+        ref={el => shapesRef.current[0] = el}
+        className="top-20 left-10 absolute bg-white/5 shadow-lg backdrop-blur-sm border border-white/10 rounded-full w-32 h-32"
+      />
+      
+      {/* Glass Square 1 */}
+      <div
+        ref={el => shapesRef.current[1] = el}
+        className="top-40 right-20 absolute bg-pink-500/10 shadow-lg backdrop-blur-sm border border-pink-300/20 rounded-2xl w-24 h-24 rotate-45"
+      />
+      
+      {/* Glass Sphere 2 */}
+      <div
+        ref={el => shapesRef.current[2] = el}
+        className="top-96 left-1/3 absolute bg-purple-500/10 shadow-lg backdrop-blur-sm border border-purple-300/20 rounded-full w-20 h-20"
+      />
+      
+      {/* Glass Square 2 */}
+      <div
+        ref={el => shapesRef.current[3] = el}
+        className="right-10 bottom-40 absolute bg-indigo-500/10 shadow-lg backdrop-blur-sm border border-indigo-300/20 rounded-3xl w-28 h-28 rotate-12"
+      />
+      
+      {/* Glass Sphere 3 */}
+      <div
+        ref={el => shapesRef.current[4] = el}
+        className="bottom-20 left-20 absolute bg-white/8 shadow-lg backdrop-blur-sm border border-white/15 rounded-full w-16 h-16"
+      />
+    </div>
+  );
+};
+const CustomCursor = () => {
+  const cursorDotRef = useRef(null);
+  const cursorRingRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const cursorDot = cursorDotRef.current;
+    const cursorRing = cursorRingRef.current;
+    
+    if (!cursorDot || !cursorRing) return;
+
+    // Check if device supports hover (desktop)
+    const hasHover = window.matchMedia('(hover: hover)').matches;
+    if (!hasHover) {
+      setIsVisible(false);
+      document.body.classList.remove('custom-cursor-active');
+      return;
+    }
+
+    setIsVisible(true);
+    document.body.classList.add('custom-cursor-active');
+
+    let mouseX = 0;
+    let mouseY = 0;
+
+    const moveCursor = (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      
+      // Move dot immediately
+      gsap.to(cursorDot, {
+        x: mouseX,
+        y: mouseY,
+        duration: 0,
+        ease: "none"
+      });
+      
+      // Move ring with lag for premium feel
+      gsap.to(cursorRing, {
+        x: mouseX,
+        y: mouseY,
+        duration: 0.15,
+        ease: "power2.out"
+      });
+    };
+
+    const handleMouseEnter = () => {
+      // Scale up both elements when hovering interactive elements
+      gsap.to(cursorDot, {
+        scale: 2,
+        backgroundColor: "#FF2E63",
+        duration: 0.3,
+        ease: "power2.out"
+      });
+      
+      gsap.to(cursorRing, {
+        scale: 1.5,
+        borderColor: "#FF2E63",
+        duration: 0.3,
+        ease: "power2.out"
+      });
+    };
+
+    const handleMouseLeave = () => {
+      // Return to normal state
+      gsap.to(cursorDot, {
+        scale: 1,
+        backgroundColor: "#FF2E63",
+        duration: 0.3,
+        ease: "power2.out"
+      });
+      
+      gsap.to(cursorRing, {
+        scale: 1,
+        borderColor: "rgba(255, 46, 99, 0.3)",
+        duration: 0.3,
+        ease: "power2.out"
+      });
+    };
+
+    const handleMouseDown = () => {
+      gsap.to([cursorDot, cursorRing], {
+        scale: 0.8,
+        duration: 0.1,
+        ease: "power2.out"
+      });
+    };
+
+    const handleMouseUp = () => {
+      gsap.to(cursorDot, {
+        scale: 1,
+        duration: 0.1,
+        ease: "power2.out"
+      });
+      gsap.to(cursorRing, {
+        scale: 1,
+        duration: 0.1,
+        ease: "power2.out"
+      });
+    };
+
+    // Add event listeners
+    document.addEventListener('mousemove', moveCursor);
+    document.addEventListener('mousedown', handleMouseDown);
+    document.addEventListener('mouseup', handleMouseUp);
+    
+    // Add hover effects for interactive elements
+    const interactiveElements = document.querySelectorAll('button, a, input, textarea, [role="button"]');
+    interactiveElements.forEach(el => {
+      el.addEventListener('mouseenter', handleMouseEnter);
+      el.addEventListener('mouseleave', handleMouseLeave);
+    });
+
+    return () => {
+      document.removeEventListener('mousemove', moveCursor);
+      document.removeEventListener('mousedown', handleMouseDown);
+      document.removeEventListener('mouseup', handleMouseUp);
+      document.body.classList.remove('custom-cursor-active');
+      interactiveElements.forEach(el => {
+        el.removeEventListener('mouseenter', handleMouseEnter);
+        el.removeEventListener('mouseleave', handleMouseLeave);
+      });
+    };
+  }, []);
+
+  if (!isVisible) return null;
+
+  return (
+    <>
+      {/* Cursor Dot */}
+      <div
+        ref={cursorDotRef}
+        className="z-[9999] fixed bg-primary rounded-full w-2 h-2 cursor-dot pointer-events-none"
+        style={{ transform: 'translate(-50%, -50%)' }}
+      />
+      
+      {/* Cursor Ring */}
+      <div
+        ref={cursorRingRef}
+        className="z-[9998] fixed border border-primary/30 rounded-full w-8 h-8 cursor-ring pointer-events-none"
+        style={{ transform: 'translate(-50%, -50%)' }}
+      />
+    </>
+  );
+};
+
+// Professional Custom Cursor Component
+const MagneticButton = ({ children, className, onClick, isSpecial = false, ...props }) => {
+  const buttonRef = useRef(null);
+
+  useEffect(() => {
+    const button = buttonRef.current;
+    if (!button) return;
+
+    const multiplier = isSpecial ? 0.6 : 0.4; // Stronger effect for special buttons
+
+    const handleMouseMove = (e) => {
+      const rect = button.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      
+      gsap.to(button, {
+        x: x * multiplier,
+        y: y * multiplier,
+        duration: 0.3,
+        ease: "power2.out"
+      });
+    };
+
+    const handleMouseLeave = () => {
+      gsap.to(button, {
+        x: 0,
+        y: 0,
+        duration: 0.5,
+        ease: "elastic.out(1, 0.3)"
+      });
+    };
+
+    button.addEventListener('mousemove', handleMouseMove);
+    button.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      button.removeEventListener('mousemove', handleMouseMove);
+      button.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, [isSpecial]);
+
+  return (
+    <button
+      ref={buttonRef}
+      className={`${className} cursor-pointer`}
+      onClick={onClick}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+};
+
+// Floating Image Component
+const FloatingImage = ({ children, className, intensity = 1 }) => {
+  const imageRef = useRef(null);
+
+  useEffect(() => {
+    const image = imageRef.current;
+    if (!image) return;
+
+    // Create floating animation
+    gsap.to(image, {
+      y: -20 * intensity,
+      duration: 3,
+      ease: "power2.inOut",
+      yoyo: true,
+      repeat: -1
+    });
+
+    // Add subtle rotation
+    gsap.to(image, {
+      rotation: 2 * intensity,
+      duration: 4,
+      ease: "power2.inOut",
+      yoyo: true,
+      repeat: -1
+    });
+
+    return () => {
+      gsap.killTweensOf(image);
+    };
+  }, [intensity]);
+
+  return (
+    <div ref={imageRef} className={className}>
+      {children}
+    </div>
+  );
+};
+
+// Image Reveal Component using Framer Motion
+const ImageReveal = ({ children, className, delay = 0 }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ scale: 0.8, opacity: 0 }}
+      animate={isInView ? { scale: 1, opacity: 1 } : { scale: 0.8, opacity: 0 }}
+      transition={{ 
+        duration: 0.8, 
+        delay: delay,
+        ease: [0.25, 0.25, 0.25, 0.75]
+      }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
+// Framer Motion Section Animation Variants
+const sectionVariants = {
+  hidden: { 
+    opacity: 0, 
+    y: 60 
+  },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { 
+      duration: 0.8, 
+      ease: [0.25, 0.25, 0.25, 0.75]
+    }
+  }
+};
+
+const Header = () => {
+  return (
+    <motion.header 
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className="top-0 z-40 sticky bg-white/10 shadow-lg backdrop-blur-md border-white/20 border-b w-full"
+    >
+      <div className="flex justify-between items-center mx-auto px-6 max-w-7xl h-20">
+        <div className="flex items-center gap-3">
+          <div className="flex justify-center items-center bg-primary/20 shadow-glow backdrop-blur-sm border border-primary/30 rounded-xl w-10 h-10 text-white">
+            <span className="material-symbols-outlined">grid_view</span>
+          </div>
+          <span className="font-bold text-white text-xl tracking-tight">ATC</span>
+        </div>
+        <nav className="hidden md:flex items-center gap-8">
+          <a className="font-medium text-white/80 hover:text-white transition-colors" href="#home">Home</a>
+          <a className="font-medium text-white/80 hover:text-white transition-colors" href="#about">About</a>
+          <a className="font-medium text-white/80 hover:text-white transition-colors" href="#skills">Skills</a>
+          <a className="font-medium text-white/80 hover:text-white transition-colors" href="#services">Services</a>
+        </nav>
+        <MagneticButton className="hidden md:block bg-primary/20 hover:bg-primary/30 backdrop-blur-sm px-6 py-2.5 border border-primary/30 rounded-xl font-bold text-white text-sm transition-all duration-300">
+          Hire Me
+        </MagneticButton>
+      </div>
+    </motion.header>
+  );
+};
+
+const HeroSection = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  return (
+    <motion.section 
+      ref={ref}
+      variants={sectionVariants}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      id="home" 
+      className="items-center gap-12 grid grid-cols-1 lg:grid-cols-2 py-16 lg:py-24"
+    >
+      <div className="space-y-8 order-2 lg:order-1">
+        <div className="inline-flex items-center bg-white/10 backdrop-blur-sm px-4 py-1.5 border border-white/20 rounded-full font-bold text-primary text-xs uppercase tracking-wider">
+          Available for hire
+        </div>
+        <h1 className="font-extrabold text-white text-5xl lg:text-7xl leading-[1.1] tracking-tight">
+          I'm <span className="text-primary">Apu Nath</span>
+        </h1>
+        <h3 className="font-bold text-white/90 text-3xl lg:text-4xl leading-tight">Frontend-Based MERN Stack Developer</h3>
+        
+        <p className="max-w-lg text-white/70 text-xl leading-relaxed">
+          Crafting digital experiences that <span className="font-bold text-primary">matter</span>. Specialized in MERN Stack Development.
+        </p>
+        <div className="flex flex-wrap gap-4">
+          <MagneticButton 
+            isSpecial={true}
+            className="flex items-center gap-2 bg-primary/20 hover:bg-primary/30 shadow-glow backdrop-blur-sm px-8 py-4 border border-primary/30 rounded-2xl font-bold text-white hover:scale-[1.02] transition-all duration-300 transform"
+          >
+            <span className="material-symbols-outlined">chat_bubble</span> Let's Talk
+          </MagneticButton>
+          <MagneticButton className="flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm px-8 py-4 border border-white/20 rounded-2xl font-bold text-white transition-all duration-300">
+            <span className="material-symbols-outlined">download</span> Download CV
+          </MagneticButton>
+        </div>
+        <div className="gap-8 grid grid-cols-3 pt-8 border-white/20 border-t">
+          <div><h3 className="font-extrabold text-3xl text-accent-pink">8+</h3><p className="text-white/60 text-sm">Months of Learning & Practice</p></div>
+          <div><h3 className="font-extrabold text-3xl text-accent-pink">10+</h3><p className="text-white/60 text-sm">Practice Projects</p></div>
+          <div><h3 className="font-extrabold text-3xl text-accent-pink">1000+</h3><p className="text-white/60 text-sm">Hours of Coding</p></div>
+        </div>
+      </div>
+
+      <div className="relative flex justify-center lg:justify-end order-1 lg:order-2">
+        <div className="relative w-72 lg:w-[450px] h-72 lg:h-[450px]">
+          <div className="absolute -inset-4 bg-primary/20 blur-3xl rounded-full"></div>
+          <FloatingImage className="relative bg-white/10 shadow-2xl backdrop-blur-md p-2 border border-white/20 rounded-full w-full h-full overflow-hidden">
+            <ImageReveal className="w-full h-full">
+              <img 
+                src="https://media.licdn.com/dms/image/v2/D5603AQGcrSjfiovJgw/profile-displayphoto-scale_400_400/B56Zqf6AzBHQAg-/0/1763619380608?e=1769040000&v=beta&t=wdmaoG33v083X1SUM47TmxFU_erUuQa_-Boxe72gH0o" 
+                className="rounded-full w-full h-full object-cover" 
+                alt="ApuNath"
+              />
+            </ImageReveal>
+          </FloatingImage>
+          <div className="right-10 bottom-10 absolute bg-green-500/80 backdrop-blur-sm border-4 border-white/30 rounded-full w-8 h-8 animate-pulse"></div>
+        </div>
+      </div>
+    </motion.section>
+  );
+};
+const AboutSection = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  return (
+    <motion.section 
+      ref={ref}
+      variants={sectionVariants}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      id="about" 
+      className="items-center gap-16 grid grid-cols-1 lg:grid-cols-2 py-20"
+    >
+      <div className="group relative order-1 mx-auto lg:mx-0 max-w-md">
+        <div className="hidden md:block -top-4 right-4 bottom-4 -left-4 z-0 absolute border-2 border-primary/30 rounded-2xl transition-transform group-hover:translate-x-2 group-hover:translate-y-2 duration-500 pointer-events-none"></div>
+        <FloatingImage 
+          intensity={0.8}
+          className="z-10 relative bg-white/10 shadow-2xl backdrop-blur-md border border-white/20 rounded-2xl aspect-[3/4] overflow-hidden"
+        >
+          <ImageReveal delay={0.2} className="w-full h-full">
+            <img 
+              alt="Portrait" 
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+              src="https://media.licdn.com/dms/image/v2/D5603AQGcrSjfiovJgw/profile-displayphoto-scale_400_400/B56Zqf6AzBHQAg-/0/1763619380608?e=1769040000&v=beta&t=wdmaoG33v083X1SUM47TmxFU_erUuQa_-Boxe72gH0o"
+            />
+          </ImageReveal>
+          <div className="right-6 bottom-6 absolute bg-white/20 shadow-xl backdrop-blur-md p-5 border border-white/30 rounded-xl">
+            <span className="font-bold text-4xl text-accent-pink">8+</span>
+            <p className="mt-1 font-medium text-white/80 text-sm leading-tight">Months Learning Experience</p>
+          </div>
+        </FloatingImage>
+      </div>
+
+      <div className="space-y-8 order-2">
+        <div className="space-y-4">
+          <span className="flex items-center gap-2 font-semibold text-sm uppercase tracking-wider text-accent-pink">
+            <span className="w-8 h-[2px] bg-accent-pink"></span> About Me
+          </span>
+          <h2 className="font-bold text-white text-4xl lg:text-6xl leading-tight">
+            Inspiring The <br/>
+            <span className="pr-1 font-display font-semibold gradient-text-pink italic">Marvelous</span> <span className="gradient-text-purple">Project</span>
+          </h2>
+          <div className="space-y-4 text-white/70 text-lg leading-relaxed">
+            <p>I'm Apu Nath, a passionate Frontend-Based MERN Stack Developer. I build responsive web applications with React, JavaScript, and Tailwind CSS.</p>
+            <p>My goal is to write clean, maintainable code while delivering exceptional user experiences.</p>
+          </div>
+        </div>
+        
+        <div className="gap-4 grid grid-cols-1 sm:grid-cols-2">
+          {[
+            { icon: 'code', text: 'Clean Code' },
+            { icon: 'bolt', text: 'Fast Projects' },
+            { icon: 'code', text: 'Problem Solving' },
+            { icon: 'bolt', text: 'Continuous Learning' }
+          ].map((item, index) => (
+            <motion.div
+              key={index}
+              whileHover={{ scale: 1.05, backgroundColor: 'rgba(255, 255, 255, 0.15)' }}
+              transition={{ duration: 0.3 }}
+              className="flex items-center gap-3 bg-white/10 backdrop-blur-sm p-4 border border-white/20 rounded-xl cursor-pointer"
+            >
+              <span className="text-accent-pink material-icons-round">{item.icon}</span>
+              <span className="font-semibold text-white">{item.text}</span>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </motion.section>
+  );
+};
+
+// Skills data - moved outside component to prevent re-renders
+const skillsData = [
+  { name: 'React', percentage: 70 },
+  { name: 'JavaScript', percentage: 75 },
+  { name: 'Node.js', percentage: 60 },
+  { name: 'Tailwind CSS', percentage: 65 },
+  { name: 'MongoDB', percentage: 50 }
+];
+
+const SkillsSection = () => {
+  const ref = useRef(null);
+  const skillsRef = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  const services = [
+    {
+      number: '01',
+      title: 'Frontend Development',
+      description: 'Building responsive web applications and learning best practices in React and JavaScript.'
+    },
+    {
+      number: '02',
+      title: 'MERN Stack Projects',
+      description: 'Creating full-stack applications using MongoDB, Express.js, React, and Node.js.'
+    },
+    {
+      number: '03',
+      title: 'Learning & Experimenting',
+      description: 'Continuously improving my skills by experimenting with new frameworks.'
+    }
+  ];
+
+  const techStack = ['React', 'JavaScript', 'Tailwind CSS', 'Node.js', 'MongoDB', 'Git'];
+
+  // GSAP Stagger Animation for Skill Bars
+  useEffect(() => {
+    if (isInView && skillsRef.current) {
+      const skillBars = skillsRef.current.querySelectorAll('.skill-bar');
+      const skillPercentages = skillsRef.current.querySelectorAll('.skill-percentage');
+      
+      // Reset skill bars
+      gsap.set(skillBars, { width: 0 });
+      gsap.set(skillPercentages, { opacity: 0 });
+      
+      // Animate skill bars with stagger
+      gsap.to(skillBars, {
+        width: (index) => `${skillsData[index].percentage}%`,
+        duration: 1.2,
+        stagger: 0.2,
+        ease: "power2.out",
+        delay: 0.3
+      });
+
+      // Animate percentage text
+      gsap.to(skillPercentages, {
+        opacity: 1,
+        duration: 0.5,
+        stagger: 0.2,
+        delay: 0.8
+      });
+    }
+  }, [isInView]);
+
+  return (
+    <motion.section 
+      ref={ref}
+      variants={sectionVariants}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      id="skills" 
+      className="py-20 border-white/20 border-t"
+    >
+      <header className="mb-16 text-center">
+        <h2 className="mb-3 font-bold text-sm uppercase tracking-widest text-accent-pink">What I Do</h2>
+        <h1 className="font-bold text-white text-4xl md:text-6xl leading-tight">
+          Empowering <span className="pr-1 font-display font-semibold gradient-text-pink italic">Creativity</span><br/>
+          <span className="gradient-text-purple">Through</span>
+        </h1>
+      </header>
+
+      <div className="gap-16 grid grid-cols-1 lg:grid-cols-2">
+        <div ref={skillsRef} className="space-y-8">
+          <h3 className="pl-4 border-accent-pink border-l-4 font-bold text-white text-2xl">Technical Skills</h3>
+          <div className="space-y-6">
+            {skillsData.map((skill, index) => (
+              <div key={index} className="group">
+                <div className="flex justify-between items-end mb-2">
+                  <span className="font-semibold text-white text-sm">{skill.name}</span>
+                  <span className="opacity-0 font-mono font-bold text-xs text-accent-pink skill-percentage">{skill.percentage}%</span>
+                </div>
+                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-full w-full h-2 overflow-hidden">
+                  <div className="bg-gradient-to-r to-primary rounded-full w-0 h-full from-accent-pink skill-bar"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div id="services" className="space-y-6">
+          <h3 className="mb-8 pl-4 border-secondary border-l-4 font-bold text-white text-2xl">Services</h3>
+          {services.map((service, index) => (
+            <motion.div
+              key={index}
+              whileHover={{ scale: 1.02, backgroundColor: 'rgba(255, 255, 255, 0.15)' }}
+              transition={{ duration: 0.3 }}
+              className="bg-white/10 shadow-sm backdrop-blur-md p-6 border border-white/20 rounded-2xl transition-all cursor-pointer"
+            >
+              <div className="flex items-start gap-4">
+                <span className="opacity-40 font-black text-4xl text-accent-pink">{service.number}</span>
+                <div>
+                  <h4 className="mb-2 font-bold text-white text-xl">{service.title}</h4>
+                  <p className="text-white/70 text-sm">{service.description}</p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex flex-wrap justify-center gap-3 mt-20">
+        {techStack.map((tech, index) => (
+          <motion.span
+            key={index}
+            whileHover={{ scale: 1.1, backgroundColor: 'rgba(255, 255, 255, 0.15)' }}
+            className="bg-white/10 backdrop-blur-sm px-5 py-2.5 border border-white/20 rounded-full font-bold text-white text-xs transition-all duration-300 cursor-pointer"
+          >
+            {tech}
+          </motion.span>
+        ))}
+      </div>
+    </motion.section>
+  );
+};
+
+const PortfolioSection = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  const projects = [
+    {
+      title: 'Skill Path',
+      category: 'Web Development',
+      description: 'Skill Path is your go-to platform for learning and growth. Explore expert-led courses and achieve your goals.',
+      image: skillPathImg, 
+      link: 'https://ubiquitous-longma-59b633.netlify.app/'
+    },
+    {
+      title: 'AppOrbit',
+      category: 'Web Development',
+      description: 'AppOrbit is your all-in-one app marketplace.',
+      image: appOrbitImg,
+      link: 'https://apporbit.pages.dev/' 
+    },
+    {
+      title: 'WarmPaws',
+      category: 'Web Development',
+      description: 'WarmPaws – Pet Care in Winter',
+      image: warmPawsImg,
+      link: 'https://green-earth-op.pages.dev/'
+    }
+  ];
+
+  return (
+    <motion.section 
+      ref={ref}
+      variants={sectionVariants}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      className="relative py-20 overflow-hidden"
+    >
+      <div className="top-0 left-1/2 -z-10 absolute bg-primary/20 blur-[120px] rounded-full w-[600px] h-[400px] -translate-x-1/2 pointer-events-none"></div>
+      
+      <header className="z-10 relative mb-16 text-center">
+        <p className="mb-4 font-bold text-primary text-sm uppercase tracking-[0.2em]">Portfolio</p>
+        <h1 className="font-extrabold text-white text-4xl md:text-5xl lg:text-6xl leading-tight">
+          Transforming <span className="bg-clip-text bg-gradient-to-r from-primary to-secondary pr-1 text-transparent italic">Ideas</span> Into 
+          <br className="hidden md:block"/>
+          <span className="bg-clip-text bg-gradient-to-r from-secondary to-primary pl-1 text-transparent italic">Experiences</span>
+        </h1>
+      </header>
+
+      <div className="z-10 relative gap-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        {projects.map((project, index) => (
+          <ImageReveal key={index} delay={index * 0.2}>
+            <motion.article 
+              whileHover={{ 
+                scale: 1.02, 
+                backgroundColor: 'rgba(255, 255, 255, 0.15)',
+                borderColor: 'rgba(255, 46, 99, 0.5)'
+              }}
+              transition={{ duration: 0.3 }}
+              className="group flex flex-col bg-white/10 shadow-xl backdrop-blur-md border border-white/20 rounded-3xl h-full overflow-hidden"
+            >
+              {/* Image Container - Removed all icons and added Image tag */}
+              <div className="relative border-white/10 border-b h-64 overflow-hidden">
+                <img 
+                  src={project.image} 
+                  alt={project.title}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 flex justify-center items-center bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                   <a 
+                    href={project.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="bg-primary px-6 py-2 rounded-full font-bold text-white text-sm transition-transform translate-y-4 group-hover:translate-y-0 duration-300 transform"
+                  >
+                    View Project
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex flex-col flex-1 p-6 md:p-8">
+                <span className="block mb-3 font-bold text-primary text-xs uppercase tracking-widest">{project.category}</span>
+                <div className="flex justify-between items-start mb-4">
+                  <h2 className="font-bold text-white group-hover:text-primary text-2xl transition-colors">{project.title}</h2>
+                  {/* Link converted to <a> tag */}
+                  <a 
+                    href={project.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1 mt-1 font-semibold text-white/80 hover:text-primary text-sm transition-colors"
+                  >
+                    Live Link <span className="text-base material-icons-round">arrow_outward</span>
+                  </a>
+                </div>
+                <p className="flex-1 mb-6 text-white/70 text-sm leading-relaxed">{project.description}</p>
+              </div>
+            </motion.article>
+          </ImageReveal>
+        ))}
+      </div>
+    </motion.section>
+  );
+};
+
+const ContactSection = () => {
+  const form = useRef(); 
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  
+  // State keys updated to match input names exactly
+  const [formData, setFormData] = useState({
+    from_name: '',
+    from_email: '',
+    message: ''
+  });
+
+  const [isSending, setIsSending] = useState(false);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsSending(true);
+
+    emailjs.sendForm(
+      'service_9tuzpte',   
+      'template_x6d1fft',  
+      form.current, 
+      'QowlL85FEAM-Tedw_'    
+    )
+    .then((result) => {
+        alert("Message sent successfully! ❤️");
+        setFormData({ from_name: '', from_email: '', message: '' }); 
+        setIsSending(false);
+    }, (error) => {
+        alert("Oops! Something went wrong. ❌");
+        setIsSending(false);
+    });
+  };
+
+  const contactInfo = [
+    {
+      icon: 'email',
+      label: 'Email',
+      value: 'aputhecoder26@gmail.com'
+    },
+    {
+      icon: 'call',
+      label: 'Phone',
+      value: '+880 1518671881'
+    },
+    {
+      icon: 'location_on',
+      label: 'Location',
+      value: 'Chattogram, Bangladesh'
+    }
+  ];
+
+  return (
+    <motion.section 
+      ref={ref}
+      variants={sectionVariants}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      id="contact" 
+      className="relative py-20 border-white/20 border-t" // Design thik rakhlam
+    >
+      <div className="mb-12 md:mb-16 text-center">
+        <h3 className="mb-3 font-bold text-primary text-sm uppercase tracking-wider">Get In Touch</h3>
+        <h1 className="font-bold text-white text-4xl md:text-5xl lg:text-6xl">
+          Let's Work <span className="font-display font-semibold gradient-text-pink italic">Together</span>
+        </h1>
+      </div>
+
+      <div className="z-10 relative gap-10 grid grid-cols-1 lg:grid-cols-2"> 
+        <div className="space-y-6">
+          {contactInfo.map((info, index) => (
+            <motion.div
+              key={index}
+              whileHover={{ scale: 1.02, backgroundColor: 'rgba(255, 255, 255, 0.15)' }}
+              transition={{ duration: 0.3 }}
+              className="flex items-center gap-5 bg-white/10 shadow-sm backdrop-blur-md p-6 border border-white/20 rounded-2xl cursor-pointer"
+            >
+              <div className="flex justify-center items-center bg-primary/20 backdrop-blur-sm border border-primary/30 rounded-xl w-14 h-14 shrink-0">
+                <span className="text-primary material-icons-round">{info.icon}</span>
+              </div>
+              <div className="overflow-hidden">
+                <p className="mb-1 text-white/60 text-sm">{info.label}</p>
+                <p className="font-bold text-white text-base sm:text-lg truncate">{info.value}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        <motion.form 
+          ref={form}
+          whileHover={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
+          transition={{ duration: 0.3 }}
+          onSubmit={handleSubmit} 
+          className="z-20 relative space-y-4 bg-white/10 backdrop-blur-md p-8 border border-white/20 rounded-2xl"
+        >
+          <input 
+            required
+            type="text" 
+            name="from_name"
+            placeholder="Your Name" 
+            value={formData.from_name}
+            onChange={handleInputChange}
+            className="bg-white/10 backdrop-blur-sm p-4 border border-white/20 focus:border-primary rounded-xl outline-none w-full text-white transition-colors placeholder-white/60"
+          />
+          
+          <input 
+            required
+            type="email" 
+            name="from_email"
+            placeholder="Your Email" 
+            value={formData.from_email}
+            onChange={handleInputChange}
+            className="bg-white/10 backdrop-blur-sm p-4 border border-white/20 focus:border-primary rounded-xl outline-none w-full text-white transition-colors placeholder-white/60"
+          />
+          
+          <textarea 
+            required
+            name="message"
+            placeholder="Your Message" 
+            rows="4"
+            value={formData.message}
+            onChange={handleInputChange}
+            className="bg-white/10 backdrop-blur-sm p-4 border border-white/20 focus:border-primary rounded-xl outline-none w-full text-white transition-colors resize-none placeholder-white/60"
+          ></textarea>
+          
+          <MagneticButton 
+            isSpecial={true}
+            type="submit"
+            disabled={isSending}
+            className="flex justify-center items-center gap-2 bg-primary/20 hover:bg-primary/30 shadow-glow backdrop-blur-sm py-4 border border-primary/30 rounded-full w-full font-bold text-white transition-all duration-300"
+          >
+            {isSending ? 'Sending...' : 'Send Message'} 
+            {!isSending && <span className="text-sm material-symbols-outlined">send</span>}
+          </MagneticButton>
+        </motion.form>
+      </div>
+    </motion.section>
+  );
+};
+
+const Footer = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  // Social Links updated with your profiles
+  const socialLinks = [
+    { name: 'LinkedIn', icon: 'account_circle', href: 'https://www.linkedin.com/in/apu-nath-76a490392/' },
+    { name: 'GitHub', icon: 'code', href: 'https://github.com/opunath26' },
+    { name: 'Facebook', icon: 'facebook', href: 'https://www.facebook.com/oputhecoder26' },
+    { name: 'Instagram', icon: 'photo_camera', href: 'https://www.instagram.com/artistop26?utm_source=qr' }
+  ];
+
+  return (
+    <motion.footer 
+      ref={ref}
+      variants={sectionVariants}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      className="bg-white/5 backdrop-blur-md mt-20 py-12 border-white/20 border-t"
+    >
+      <div className="mx-auto px-6 max-w-7xl">
+        <div className="flex md:flex-row flex-col justify-between items-center gap-8">
+          
+          {/* Left Side: Logo & Info */}
+          <div className="space-y-4 md:text-left text-center">
+            <div className="flex justify-center md:justify-start items-center gap-3">
+              <div className="flex justify-center items-center bg-primary/20 shadow-glow backdrop-blur-sm border border-primary/30 rounded-xl w-10 h-10 text-white">
+                <span className="material-symbols-outlined">grid_view</span>
+              </div>
+              <span className="font-bold text-white text-xl tracking-tight">ATC</span>
+            </div>
+            <p className="max-w-xs text-white/60 text-sm leading-relaxed">
+              Apu Nath — MERN Stack Developer. Let's connect on social media.
+            </p>
+          </div>
+
+          {/* Center/Right Side: Big Social Icons */}
+          <div className="flex flex-wrap justify-center gap-6">
+            {socialLinks.map((social, index) => (
+              <motion.a 
+                key={index}
+                whileHover={{ 
+                  scale: 1.2, 
+                  backgroundColor: 'rgba(255, 46, 99, 0.2)', // Pinkish glow on hover
+                  color: '#FF2E63' 
+                }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                href={social.href} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group flex flex-col items-center gap-2"
+              >
+                <div className="flex justify-center items-center bg-white/5 backdrop-blur-sm border border-white/20 group-hover:border-primary/50 rounded-2xl w-14 h-14 text-white/60 transition-all">
+                  <span className="text-[28px] material-symbols-outlined">{social.icon}</span>
+                </div>
+                <span className="text-[10px] text-white/40 group-hover:text-primary uppercase tracking-widest transition-colors">
+                  {social.name}
+                </span>
+              </motion.a>
+            ))}
+          </div>
+        </div>
+
+        {/* Bottom Copyright */}
+        <div className="mt-12 pt-8 border-white/20 border-t text-center">
+          <p className="text-white/60 text-xs">
+            © 2024 <span className="font-bold text-primary">Apu Nath</span>. Built with ❤️ and React.
+          </p>
+        </div>
+      </div>
+    </motion.footer>
+  );
+};
+
+export default App;
