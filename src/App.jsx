@@ -3,6 +3,8 @@ import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './App.css';
+import profile from './assets/profile.jpeg';
+import profile2 from './assets/profile2.png';
 import skillPathImg from './assets/project1.png';
 import appOrbitImg from './assets/project2.png';
 import warmPawsImg from './assets/project3.png';
@@ -489,7 +491,7 @@ const HeroSection = () => {
           {/* Requirement 3: Resume Download Button Fixed */}
           <a
             href="https://drive.google.com/file/d/1xRFSlvYOErAWWlntK9YTmN0vC_B30ncw/view?usp=sharing"
-            target="_blank" 
+            target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm px-8 py-4 border border-white/20 rounded-2xl font-bold text-white transition-all duration-300"
           >
@@ -527,7 +529,7 @@ const HeroSection = () => {
           <FloatingImage className="relative bg-white/10 shadow-2xl backdrop-blur-md p-2 border border-white/20 rounded-full w-full h-full overflow-hidden">
             <ImageReveal className="w-full h-full">
               <img
-                src="https://drive.google.com/file/d/1JYifDAtnDvLZ4OlN4h1J1m1dtg-NNJDD/view?usp=drive_link"
+                src={profile}
                 className="rounded-full w-full h-full object-cover"
                 alt="Apu Nath Professional Portrait"
               />
@@ -564,7 +566,7 @@ const AboutSection = () => {
             <img
               alt="Portrait"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-              src="https://media.licdn.com/dms/image/v2/D5603AQGcrSjfiovJgw/profile-displayphoto-scale_400_400/B56Zqf6AzBHQAg-/0/1763619380608?e=1769040000&v=beta&t=wdmaoG33v083X1SUM47TmxFU_erUuQa_-Boxe72gH0o"
+              src={profile2}
             />
           </ImageReveal>
           <div className="right-6 bottom-6 absolute bg-white/20 shadow-xl backdrop-blur-md p-5 border border-white/30 rounded-xl">
@@ -1225,7 +1227,7 @@ const Footer = () => {
           <p className="text-white/60 text-xs md:text-left text-center">
             © {new Date().getFullYear()} <span className="font-bold text-primary">Apu Nath</span>. Built with ❤️, React & Tailwind CSS.
           </p>
-          
+
           {/* Quick links - Hiring Badge */}
           <div className="flex items-center gap-2">
             <span className="relative flex w-2 h-2">
