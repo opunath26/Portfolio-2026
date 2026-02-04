@@ -423,7 +423,7 @@ const Header = () => {
           <div className="flex justify-center items-center bg-primary/20 shadow-glow backdrop-blur-sm border border-primary/30 rounded-xl w-10 h-10 text-white">
             <span className="material-symbols-outlined">grid_view</span>
           </div>
-          <span className="font-bold text-white text-xl tracking-tight">ATC</span>
+          <span className="font-bold text-white text-xl tracking-tight">Web Artist</span>
         </div>
         <nav className="hidden md:flex items-center gap-8">
           <a className="font-medium text-white/80 hover:text-white transition-colors" href="#home">Home</a>
@@ -527,7 +527,7 @@ const HeroSection = () => {
           <FloatingImage className="relative bg-white/10 shadow-2xl backdrop-blur-md p-2 border border-white/20 rounded-full w-full h-full overflow-hidden">
             <ImageReveal className="w-full h-full">
               <img
-                src="https://media.licdn.com/dms/image/v2/D5603AQGcrSjfiovJgw/profile-displayphoto-scale_400_400/B56Zqf6AzBHQAg-/0/1763619380608?e=1769040000&v=beta&t=wdmaoG33v083X1SUM47TmxFU_erUuQa_-Boxe72gH0o"
+                src="https://drive.google.com/file/d/1JYifDAtnDvLZ4OlN4h1J1m1dtg-NNJDD/view?usp=drive_link"
                 className="rounded-full w-full h-full object-cover"
                 alt="Apu Nath Professional Portrait"
               />
@@ -1190,7 +1190,7 @@ const Footer = () => {
               <div className="flex justify-center items-center bg-primary/20 shadow-glow backdrop-blur-sm border border-primary/30 rounded-xl w-10 h-10 text-white">
                 <span className="material-symbols-outlined">grid_view</span>
               </div>
-              <span className="font-bold text-white text-xl tracking-tight">ATC</span>
+              <span className="font-bold text-white text-xl tracking-tight">Web Artist</span>
             </div>
             <p className="max-w-xs text-white/60 text-sm leading-relaxed">
               Apu Nath — MERN Stack Developer. Creating seamless web experiences with React and modern technologies.
