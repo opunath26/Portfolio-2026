@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,600&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons+Round');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons+Outlined');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&display=swap');
+
+/* Custom CSS Variables */
+:root {
+  --primary: #FF2E63;
+  --accent-pink: #FF2E63;
+  --secondary: #9C27B0;
+  --background-light: #f6f6f8;
+  --background-dark: #050505;
+  --card-dark: #111111;
+  --bar-bg-dark: #222222;
+  --bar-bg-light: #E5E7EB;
+}
+
+/* Custom Gradient Text Classes */
+.gradient-text-pink {
+  background: linear-gradient(to right, #FF2E63, #FF80AB);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-purple {
+  background: linear-gradient(to right, #D500F9, #AA00FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+/* Image Border Decoration */
+.image-border-decoration {
+  position: absolute;
+  top: -16px; 
+  left: -16px; 
+  right: 16px; 
+  bottom: 16px;
+  border: 2px solid #FF2E63;
+  border-radius: 2rem;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Tailwind Classes */
+.bg-primary {
+  background-color: var(--primary);
+}
+
+.text-primary {
+  color: var(--primary);
+}
+
+.text-accent-pink {
+  color: var(--accent-pink);
+}
+
+.bg-accent-pink {
+  background-color: var(--accent-pink);
+}
+
+.text-secondary {
+  color: var(--secondary);
+}
+
+.bg-secondary {
+  background-color: var(--secondary);
+}
+
+.bg-background-light {
+  background-color: var(--background-light);
+}
+
+.bg-background-dark {
+  background-color: var(--background-dark);
+}
+
+.bg-card-dark {
+  background-color: var(--card-dark);
+}
+
+.bg-bar-bg-dark {
+  background-color: var(--bar-bg-dark);
+}
+
+.bg-bar-bg-light {
+  background-color: var(--bar-bg-light);
+}
+
+.border-primary {
+  border-color: var(--primary);
+}
+
+.border-accent-pink {
+  border-color: var(--accent-pink);
+}
+
+.border-secondary {
+  border-color: var(--secondary);
+}
+
+/* Custom Shadow */
+.shadow-glow {
+  box-shadow: 0 0 20px -5px rgba(255, 46, 99, 0.3);
+}
+
+/* Font Families */
+.font-sans {
+  font-family: 'Inter', sans-serif;
+}
+
+.font-outfit {
+  font-family: 'Outfit', sans-serif;
+}
+
+.font-display {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Dark Mode Styles */
+.dark {
+  color-scheme: dark;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .image-border-decoration {
+    display: none;
+  }
+}
