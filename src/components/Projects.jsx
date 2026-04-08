@@ -6,6 +6,17 @@ import warmPawsImg from '../assets/project3.png';
 
 const projectsData = [
   {
+    title: 'Pawfect Match',
+    category: 'Team Project (Next.js)',
+    image: 'https://i.ibb.co.com/7NxrNBND/1.png', 
+    link: 'https://pawfect-match-sepia.vercel.app/',
+    github: 'https://github.com/Jahid160/Pawfect-Match.git',
+    description: 'A comprehensive pet adoption and e-commerce ecosystem. Led a team of six to build this full-stack solution featuring admin dashboards, secure payments, and pet care categories.',
+    techStack: [ 'Node.js', 'MongoDB', 'Firebase', 'Stripe', 'Tailwind CSS'],
+    challenges: 'Coordinating task allocation for a team of 6 and ensuring consistent UI/UX across complex features like the admin dashboard and notification system.',
+    futurePlans: 'Expanding the vet appointment system and integrating an AI-driven pet compatibility quiz.',
+  },
+  {
     title: 'Skill Path',
     category: 'Web Development',
     image: skillPathImg,
@@ -79,7 +90,7 @@ const ProjectModal = ({ project, onClose }) => (
             <h4 className="mb-2 font-bold text-sm uppercase tracking-wider text-accent-pink">Future Plans</h4>
             <p className="text-white/60 text-sm leading-relaxed">{project.futurePlans}</p>
           </div>
-          <div className="flex flex-wrap gap-4 pt-4 border-t border-white/10">
+          <div className="flex flex-wrap gap-4 pt-4 border-white/10 border-t">
             <a href={project.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-primary px-6 py-3 rounded-xl font-bold text-white active:scale-95 transition-transform">
               Live Project <span className="material-icons-round">open_in_new</span>
             </a>
@@ -125,7 +136,7 @@ const Projects = () => {
             whileHover={{ y: -10 }}
             className="group flex flex-col bg-white/10 shadow-xl backdrop-blur-md border border-white/20 rounded-3xl h-full overflow-hidden"
           >
-            <div className="relative border-b border-white/10 h-64 overflow-hidden">
+            <div className="relative border-white/10 border-b h-64 overflow-hidden">
               <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
             </div>
             <div className="flex flex-col flex-1 p-6">
