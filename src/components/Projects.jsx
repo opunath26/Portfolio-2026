@@ -17,6 +17,17 @@ const projectsData = [
     futurePlans: 'Expanding the vet appointment system and integrating an AI-driven pet compatibility quiz.',
   },
   {
+    title: 'Idea Arena',
+    category: 'Innovative Project Showcase',
+    image: 'https://i.ibb.co.com/QFW6rZYm/Idea-arina.png',
+    link: 'https://idea-arena-74762.web.app/',
+    github: 'https://github.com/opunath26/idea-arena-client.git',
+    description: 'A modern centralized hub designed to showcase and manage diverse software applications. Optimized for high performance and seamless user experience.',
+    techStack: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'Firebase', 'Tailwind CSS'],
+    challenges: 'Optimizing the front-end for fast loading times while managing a large database of projects and ensuring real-time search accuracy.',
+    futurePlans: 'Implementing a user voting system and an AI-based project categorization tool.',
+  },
+  {
     title: 'Skill Path',
     category: 'Web Development',
     image: skillPathImg,
