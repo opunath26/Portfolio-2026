@@ -39,6 +39,17 @@ const projectsData = [
     futurePlans: 'Plan to add a community forum and real-time quiz feature to enhance student engagement.',
   },
   {
+    title: 'Gadget Galaxy',
+    category: 'E-commerce Platform',
+    image: 'https://i.ibb.co.com/4RZptJjH/Gadget-Galaxy.png',
+    link: 'https://gadget-galaxy-client-six.vercel.app/',
+    github: 'https://github.com/opunath26/gadget-galaxy-client.git',
+    description: 'A premium e-commerce store for tech enthusiasts, featuring a dynamic product catalog, advanced cart management, and a seamless checkout experience.',
+    techStack: ['Next.js', 'Context API', 'Tailwind CSS', 'Local Storage'],
+    challenges: 'Managing synchronized state across multiple components for the shopping cart and ensuring the UI remains responsive for diverse screen sizes.',
+    futurePlans: 'Integrating a backend with Next.js and MongoDB for user authentication and real-time order tracking.',
+  },
+  {
     title: 'AppOrbit',
     category: 'Web Development',
     image: appOrbitImg,
