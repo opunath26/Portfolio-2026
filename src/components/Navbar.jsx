@@ -20,14 +20,14 @@ const Navbar = () => {
             <a
               key={item}
               href={`#${item}`}
-              className="font-medium text-white/80 hover:text-white capitalize transition-colors"
+              className="group relative py-2 font-medium text-white/80 hover:text-white capitalize transition-colors"
             >
               {item}
+              <span className="bottom-0 left-0 absolute bg-gradient-to-r from-primary to-secondary w-0 group-hover:w-full h-[2px] transition-all duration-300" />
             </a>
           ))}
         </nav>
 
-        {/* Hire Me Button wrapped with a link to #contact */}
         <a href="#contact" className="hidden md:block">
           <MagneticButton className="bg-primary/20 hover:bg-primary/30 backdrop-blur-sm px-6 py-2.5 border border-primary/30 rounded-xl font-bold text-white text-sm transition-all duration-300">
             Hire Me
