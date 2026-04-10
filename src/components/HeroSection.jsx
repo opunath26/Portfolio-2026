@@ -36,16 +36,18 @@ const HeroSection = () => {
           I'm <span className="text-primary">Apu Nath</span>
         </h1>
 
-        <h3 className="font-bold text-white/90 text-3xl lg:text-4xl leading-tight">
-          Frontend-Based MERN Stack Developer
+        {/* Updated Tagline with Next.js & Full Stack */}
+        <h3 className="font-bold text-white/90 text-2xl lg:text-4xl leading-tight">
+          Full-Stack Web Developer <br />
+          <span className="font-medium text-white/60 text-xl lg:text-2xl">Specialized in Next.js & MERN Stack</span>
         </h3>
 
-        <p className="max-w-lg text-white/70 text-xl leading-relaxed">
-          Crafting digital experiences that <span className="font-bold text-primary">matter</span>. Specialized in MERN Stack Development.
+        {/* Updated Description */}
+        <p className="max-w-lg text-white/70 text-lg lg:text-xl leading-relaxed">
+          Building scalable, high-performance web applications with <span className="font-bold text-primary">Next.js</span>. I bridge the gap between complex <span className="text-white">backend logic</span> and seamless <span className="text-white">frontend experiences</span>.
         </p>
 
         <div className="flex flex-wrap gap-4">
-          {/* ১. Let's Talk link connect kora holo */}
           <a href="#contact" className="inline-block">
             <MagneticButton
               isSpecial={true}
@@ -55,14 +57,13 @@ const HeroSection = () => {
             </MagneticButton>
           </a>
 
-          {/* ২. Download CV ke View CV kora holo ebong target blank rakha holo */}
           <a
             href="https://docs.google.com/document/d/1H3McEDcAeTZ1-59SYwSl9UDWPkrTm2fqch3jT9D8EvY/edit?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm px-8 py-4 border border-white/20 rounded-2xl font-bold text-white transition-all duration-300"
           >
-            <span className="material-symbols-outlined">visibility</span> View CV
+            <span className="material-symbols-outlined">visibility</span> View Resume
           </a>
         </div>
 
@@ -85,7 +86,7 @@ const HeroSection = () => {
         {/* Stats */}
         <div className="gap-8 grid grid-cols-3 pt-8 border-white/20 border-t">
           <div><h3 className="font-extrabold text-3xl text-accent-pink">1+</h3><p className="text-white/60 text-sm">Years of Practice</p></div>
-          <div><h3 className="font-extrabold text-3xl text-accent-pink">10+</h3><p className="text-white/60 text-sm">Practice Projects</p></div>
+          <div><h3 className="font-extrabold text-3xl text-accent-pink">15+</h3><p className="text-white/60 text-sm">Full Projects</p></div>
           <div><h3 className="font-extrabold text-3xl text-accent-pink">510+</h3><p className="text-white/60 text-sm">Hours of Coding</p></div>
         </div>
       </div>
