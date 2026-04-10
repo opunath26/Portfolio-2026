@@ -53,7 +53,7 @@ const HeroSection = () => {
           </MagneticButton>
 
           <a
-            href="https://drive.google.com/file/d/1xRFSlvYOErAWWlntK9YTmN0vC_B30ncw/view?usp=sharing"
+            href="https://docs.google.com/document/d/1H3McEDcAeTZ1-59SYwSl9UDWPkrTm2fqch3jT9D8EvY/edit?tab=t.0"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm px-8 py-4 border border-white/20 rounded-2xl font-bold text-white transition-all duration-300"
@@ -79,7 +79,7 @@ const HeroSection = () => {
         </div>
 
         {/* Stats */}
-        <div className="gap-8 grid grid-cols-3 pt-8 border-t border-white/20">
+        <div className="gap-8 grid grid-cols-3 pt-8 border-white/20 border-t">
           <div><h3 className="font-extrabold text-3xl text-accent-pink">8+</h3><p className="text-white/60 text-sm">Months of Practice</p></div>
           <div><h3 className="font-extrabold text-3xl text-accent-pink">10+</h3><p className="text-white/60 text-sm">Practice Projects</p></div>
           <div><h3 className="font-extrabold text-3xl text-accent-pink">1000+</h3><p className="text-white/60 text-sm">Hours of Coding</p></div>
