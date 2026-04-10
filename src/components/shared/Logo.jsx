@@ -5,77 +5,65 @@ const Logo = () => {
   return (
     <motion.div 
       className="group flex items-center gap-3 cursor-pointer"
-      initial="rest"
       whileHover="hover"
-      animate="rest"
+      initial="rest"
     >
-      {/* Icon Section with Liquid Gradient & Glow */}
-      <motion.div
-        variants={{
-          rest: { scale: 1 },
-          hover: { scale: 1.1 }
-        }}
-        className="relative flex justify-center items-center rounded-xl w-12 h-12 overflow-hidden"
-      >
-        {/* Animated Background Flow */}
-        <motion.div
-          animate={{
-            rotate: [0, 360],
+      {/* Icon: The Morphing Square */}
+      <div className="relative flex justify-center items-center w-11 h-11">
+        {/* Solid Background that shrinks on hover */}
+        <motion.div 
+          variants={{
+            rest: { scale: 1, borderRadius: "12px" },
+            hover: { scale: 0.8, borderRadius: "50%", rotate: 90 }
           }}
-          transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-          className="absolute inset-[-50%] bg-[conic-gradient(from_0deg,#FF2E63,#08D9D6,#FF2E63)] opacity-70"
+          className="absolute inset-0 bg-primary shadow-glow"
         />
         
-        {/* Glass Overlay */}
-        <div className="absolute inset-[2px] bg-neutral-900/90 backdrop-blur-md rounded-[10px]" />
+        {/* Outline that appears on hover */}
+        <motion.div 
+          variants={{
+            rest: { opacity: 0, scale: 0.8 },
+            hover: { opacity: 1, scale: 1.1 }
+          }}
+          className="absolute inset-0 border-2 border-white rounded-xl"
+        />
 
-        {/* The Letters */}
         <motion.span
           variants={{
-            rest: { y: 0, opacity: 1 },
-            hover: { y: -2, scale: 1.1, color: "#FF2E63" }
+            rest: { color: "#FFFFFF", scale: 1 },
+            hover: { color: "#FFFFFF", scale: 0.9 }
           }}
-          className="relative font-black text-white text-2xl tracking-tighter"
+          className="relative font-black text-xl"
         >
           AN
         </motion.span>
-        
-        {/* Inner Glow */}
-        <motion.div 
-          animate={{ opacity: [0.3, 0.6, 0.3] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="absolute inset-0 bg-primary/10 rounded-xl" 
-        />
-      </motion.div>
+      </div>
 
-      {/* Text Section with Reveal Effect */}
-      <div className="flex flex-col leading-none">
-        <div className="relative overflow-hidden">
-          <motion.span 
-            className="block font-black text-white text-xl uppercase tracking-tighter"
-          >
-            Apu<span className="text-primary">Nath</span>
-          </motion.span>
+      {/* Text: The Underline Reveal */}
+      <div className="flex flex-col">
+        <div className="relative">
+          <span className="font-black text-white text-2xl uppercase tracking-tighter">
+            Apu<span className="text-primary group-hover:text-white transition-colors duration-300">Nath</span>
+          </span>
           
-          {/* Shimmer/Light Beam Effect on Hover */}
+          {/* Animated Underline */}
           <motion.div 
             variants={{
-              rest: { x: "-100%" },
-              hover: { x: "100%" }
+              rest: { width: 0 },
+              hover: { width: "100%" }
             }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -skew-x-12"
+            className="-bottom-1 left-0 absolute bg-gradient-to-r from-primary to-secondary h-[3px]"
           />
         </div>
 
         <motion.span 
           variants={{
-            rest: { opacity: 0.5, x: 0 },
-            hover: { opacity: 1, x: 2, color: "#08D9D6" }
+            rest: { opacity: 0.4, x: 0 },
+            hover: { opacity: 1, x: 4 }
           }}
-          className="font-bold text-[10px] text-white/50 uppercase tracking-[0.25em]"
+          className="mt-1 font-bold text-[9px] text-white uppercase tracking-[0.3em]"
         >
-          Full Stack Dev
+          Creative Developer
         </motion.span>
       </div>
     </motion.div>
