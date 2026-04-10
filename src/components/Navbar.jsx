@@ -16,7 +16,7 @@ const Navbar = () => {
         <Logo />
 
         <nav className="hidden md:flex items-center gap-8">
-          {['home', 'about', 'skills', 'services', 'projects'].map((item) => (
+          {['home', 'about', 'skills', 'services', 'projects', 'contact'].map((item) => (
             <a
               key={item}
               href={`#${item}`}
@@ -27,9 +27,12 @@ const Navbar = () => {
           ))}
         </nav>
 
-        <MagneticButton className="hidden md:block bg-primary/20 hover:bg-primary/30 backdrop-blur-sm px-6 py-2.5 border border-primary/30 rounded-xl font-bold text-white text-sm transition-all duration-300">
-          Hire Me
-        </MagneticButton>
+        {/* Hire Me Button wrapped with a link to #contact */}
+        <a href="#contact" className="hidden md:block">
+          <MagneticButton className="bg-primary/20 hover:bg-primary/30 backdrop-blur-sm px-6 py-2.5 border border-primary/30 rounded-xl font-bold text-white text-sm transition-all duration-300">
+            Hire Me
+          </MagneticButton>
+        </a>
       </div>
     </motion.header>
   );
