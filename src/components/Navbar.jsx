@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import MagneticButton from './shared/MagneticButton';
+import Logo from './shared/Logo';
 
 const Navbar = () => {
   return (
@@ -8,18 +9,14 @@ const Navbar = () => {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: 'easeOut' }}
-      className="top-0 z-40 sticky bg-white/10 shadow-lg backdrop-blur-md border-b border-white/20 w-full"
+      className="top-0 z-40 sticky bg-white/10 shadow-lg backdrop-blur-md border-white/20 border-b w-full"
     >
       <div className="flex justify-between items-center mx-auto px-6 max-w-7xl h-20">
-        <div className="flex items-center gap-3">
-          <div className="flex justify-center items-center bg-primary/20 shadow-glow backdrop-blur-sm border border-primary/30 rounded-xl w-10 h-10 text-white">
-            <span className="material-symbols-outlined">grid_view</span>
-          </div>
-          <span className="font-bold text-white text-xl tracking-tight">Web Artist</span>
-        </div>
+        
+        <Logo />
 
         <nav className="hidden md:flex items-center gap-8">
-          {['home', 'about', 'skills', 'services'].map((item) => (
+          {['home', 'about', 'skills', 'services', 'projects'].map((item) => (
             <a
               key={item}
               href={`#${item}`}

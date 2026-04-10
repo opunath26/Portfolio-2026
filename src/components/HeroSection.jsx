@@ -80,9 +80,9 @@ const HeroSection = () => {
 
         {/* Stats */}
         <div className="gap-8 grid grid-cols-3 pt-8 border-white/20 border-t">
-          <div><h3 className="font-extrabold text-3xl text-accent-pink">8+</h3><p className="text-white/60 text-sm">Months of Practice</p></div>
+          <div><h3 className="font-extrabold text-3xl text-accent-pink">1+</h3><p className="text-white/60 text-sm">Years of Practice</p></div>
           <div><h3 className="font-extrabold text-3xl text-accent-pink">10+</h3><p className="text-white/60 text-sm">Practice Projects</p></div>
-          <div><h3 className="font-extrabold text-3xl text-accent-pink">1000+</h3><p className="text-white/60 text-sm">Hours of Coding</p></div>
+          <div><h3 className="font-extrabold text-3xl text-accent-pink">510+</h3><p className="text-white/60 text-sm">Hours of Coding</p></div>
         </div>
       </div>
 
