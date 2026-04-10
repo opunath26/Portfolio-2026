@@ -45,20 +45,24 @@ const HeroSection = () => {
         </p>
 
         <div className="flex flex-wrap gap-4">
-          <MagneticButton
-            isSpecial={true}
-            className="flex items-center gap-2 bg-primary/20 hover:bg-primary/30 shadow-glow backdrop-blur-sm px-8 py-4 border border-primary/30 rounded-2xl font-bold text-white hover:scale-[1.02] transition-all duration-300 transform"
-          >
-            <span className="material-symbols-outlined">chat_bubble</span> Let's Talk
-          </MagneticButton>
+          {/* ১. Let's Talk link connect kora holo */}
+          <a href="#contact" className="inline-block">
+            <MagneticButton
+              isSpecial={true}
+              className="flex items-center gap-2 bg-primary/20 hover:bg-primary/30 shadow-glow backdrop-blur-sm px-8 py-4 border border-primary/30 rounded-2xl font-bold text-white hover:scale-[1.02] transition-all duration-300 transform"
+            >
+              <span className="material-symbols-outlined">chat_bubble</span> Let's Talk
+            </MagneticButton>
+          </a>
 
+          {/* ২. Download CV ke View CV kora holo ebong target blank rakha holo */}
           <a
-            href="https://docs.google.com/document/d/1H3McEDcAeTZ1-59SYwSl9UDWPkrTm2fqch3jT9D8EvY/edit?tab=t.0"
+            href="https://docs.google.com/document/d/1H3McEDcAeTZ1-59SYwSl9UDWPkrTm2fqch3jT9D8EvY/edit?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm px-8 py-4 border border-white/20 rounded-2xl font-bold text-white transition-all duration-300"
           >
-            <span className="material-symbols-outlined">download</span> Download CV
+            <span className="material-symbols-outlined">visibility</span> View CV
           </a>
         </div>
 
