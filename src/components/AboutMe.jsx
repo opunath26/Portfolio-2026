@@ -40,8 +40,8 @@ const AboutMe = () => {
             />
           </ImageReveal>
           <div className="right-6 bottom-6 absolute bg-white/20 shadow-xl backdrop-blur-md p-5 border border-white/30 rounded-xl">
-            <span className="font-bold text-4xl text-accent-pink">8+</span>
-            <p className="mt-1 font-medium text-white/80 text-sm leading-tight">Months Learning Experience</p>
+            <span className="font-bold text-4xl text-accent-pink">1.5+</span>
+            <p className="mt-1 font-medium text-white/80 text-sm leading-tight">Year Learning Experience</p>
           </div>
         </FloatingImage>
       </div>

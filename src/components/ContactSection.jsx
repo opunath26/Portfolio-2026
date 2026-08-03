@@ -5,9 +5,9 @@ import { sectionVariants } from './utils/animations';
 import MagneticButton from './shared/MagneticButton';
 
 const contactInfo = [
-  { icon: 'email', label: 'Email', value: 'aputhecoder26@gmail.com' },
-  { icon: 'call', label: 'Phone', value: '+880 1518671881' },
-  { icon: 'chat', label: 'WhatsApp', value: '+880 1518671881', link: 'https://web.whatsapp.com/' },
+  { icon: 'email', label: 'Email', value: 'apunath1026@gmail.com' },
+  { icon: 'call', label: 'Phone', value: '(+880) 1518671881' },
+  { icon: 'chat', label: 'WhatsApp', value: '(+880) 1518671881', link: 'https://web.whatsapp.com/' },
   { icon: 'location_on', label: 'Location', value: 'Chattogram, Bangladesh' },
 ];
 
@@ -27,8 +27,14 @@ const ContactSection = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSending(true);
+
     emailjs
-      .sendForm('service_9tuzpte', 'template_x6d1fft', form.current, 'QowlL85FEAM-Tedw_')
+      .sendForm(
+        process.env.REACT_APP_EMAILJS_SERVICE_ID,
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+        form.current,
+        process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+      )
       .then(() => {
         alert('Message sent successfully! ❤️');
         setFormData({ from_name: '', from_email: '', message: '' });
@@ -47,7 +53,7 @@ const ContactSection = () => {
       initial="hidden"
       animate={isInView ? 'visible' : 'hidden'}
       id="contact"
-      className="relative py-20 border-t border-white/20"
+      className="relative py-20 border-white/20 border-t"
     >
       <div className="mb-12 md:mb-16 text-center">
         <h3 className="mb-3 font-bold text-primary text-sm uppercase tracking-wider">Get In Touch</h3>
@@ -92,7 +98,7 @@ const ContactSection = () => {
             placeholder="Your Name"
             value={formData.from_name}
             onChange={handleInputChange}
-            className="bg-white/10 backdrop-blur-sm p-4 border border-white/20 focus:border-primary rounded-xl outline-none w-full text-white placeholder-white/60 transition-colors"
+            className="bg-white/10 backdrop-blur-sm p-4 border border-white/20 focus:border-primary rounded-xl outline-none w-full text-white transition-colors placeholder-white/60"
           />
           <input
             required
@@ -101,7 +107,7 @@ const ContactSection = () => {
             placeholder="Your Email"
             value={formData.from_email}
             onChange={handleInputChange}
-            className="bg-white/10 backdrop-blur-sm p-4 border border-white/20 focus:border-primary rounded-xl outline-none w-full text-white placeholder-white/60 transition-colors"
+            className="bg-white/10 backdrop-blur-sm p-4 border border-white/20 focus:border-primary rounded-xl outline-none w-full text-white transition-colors placeholder-white/60"
           />
           <textarea
             required
@@ -110,7 +116,7 @@ const ContactSection = () => {
             rows="4"
             value={formData.message}
             onChange={handleInputChange}
-            className="bg-white/10 backdrop-blur-sm p-4 border border-white/20 focus:border-primary rounded-xl outline-none w-full text-white placeholder-white/60 transition-colors resize-none"
+            className="bg-white/10 backdrop-blur-sm p-4 border border-white/20 focus:border-primary rounded-xl outline-none w-full text-white transition-colors resize-none placeholder-white/60"
           ></textarea>
           <MagneticButton
             isSpecial={true}
