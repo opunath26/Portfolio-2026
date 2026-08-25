@@ -6,13 +6,24 @@ import warmPawsImg from '../assets/project3.png';
 
 const projectsData = [
   {
+    title: 'Hero Kidz',
+    category: 'Full-Stack E-commerce (Next.js)',
+    image: 'https://i.ibb.co.com/Fj1kMZ8/home.png',
+    link: 'https://hero-kidz-iota.vercel.app',
+    github: 'https://github.com/opunath26/my-hero-kidz',
+    description: 'A modern, responsive e-commerce platform for kids toys and care products. Features custom authentication, admin dashboard, dynamic product catalog, interactive FAQ accordion, and specialized support pages.',
+    techStack: ['Next.js', 'React', 'Tailwind CSS', 'NextAuth.js', 'MongoDB', 'Framer Motion'],
+    challenges: 'Designing an intuitive kids-friendly UI while keeping admin capabilities, authentication flows, and data management seamless and robust.',
+    futurePlans: 'Adding real-time order tracking, payment gateway integration, and personalized AI product recommendations.',
+  },
+  {
     title: 'Pawfect Match',
     category: 'Team Project (Next.js)',
     image: 'https://i.ibb.co.com/7NxrNBND/1.png', 
     link: 'https://pawfect-match-sepia.vercel.app/',
     github: 'https://github.com/Jahid160/Pawfect-Match.git',
     description: 'A comprehensive pet adoption and e-commerce ecosystem. Led a team of six to build this full-stack solution featuring admin dashboards, secure payments, and pet care categories.',
-    techStack: [ 'Node.js', 'MongoDB', 'Firebase', 'Stripe', 'Tailwind CSS'],
+    techStack: ['Node.js', 'MongoDB', 'Firebase', 'Stripe', 'Tailwind CSS'],
     challenges: 'Coordinating task allocation for a team of 6 and ensuring consistent UI/UX across complex features like the admin dashboard and notification system.',
     futurePlans: 'Expanding the vet appointment system and integrating an AI-driven pet compatibility quiz.',
   },

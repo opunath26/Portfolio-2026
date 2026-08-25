@@ -40,7 +40,8 @@ const ContactSection = () => {
         setFormData({ from_name: '', from_email: '', message: '' });
         setIsSending(false);
       })
-      .catch(() => {
+      .catch((error) => {
+        console.error('EmailJS Error:', error);
         alert('Oops! Something went wrong. ❌');
         setIsSending(false);
       });
