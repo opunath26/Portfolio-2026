@@ -6,7 +6,7 @@ const educationData = [
     degree: 'Diploma in Computer Engineering',
     institution: 'Bangladesh Sweden Polytechnic Institute',
     department: 'Computer Science & Technology (CST)',
-    duration: '2023 - 2026',
+    duration: '2023 - 2025',
     description:
       'Studying Computer Engineering with a focus on web development, programming fundamentals, data structures, and modern software technologies. Gaining hands-on experience through academic and personal projects.',
   },
@@ -14,15 +14,23 @@ const educationData = [
     degree: 'Higher Secondary Certificate (HSC) - Vocational',
     institution: 'Khagrachari Government Technical School and College',
     department: 'Electrical Works and Maintenance',
-    duration: '2017 - 2022',
+    duration: '2021 - 2022',
     description:
       'Completed HSC with a technical focus on Electrical Works and Maintenance, including basic electrical systems, wiring, and practical laboratory training.',
+  },
+  {
+    degree: 'Secondary School Certificate (SSC) - Vocational',
+    institution: 'Khagrachari Government Technical School and College',
+    department: 'Electrical Works and Maintenance',
+    duration: '2017 - 2019',
+    description:
+      'Completed Secondary School Certificate (SSC) with a technical focus on Electrical Works and Maintenance, gaining practical skills in basic electrical systems, wiring, and hands-on laboratory work.',
   },
 ];
 
 const LearningJourney = () => {
   return (
-    <section id="education" className="py-20 border-t border-white/20">
+    <section id="education" className="py-20 border-white/20 border-t">
       <div className="mb-12 text-center">
         <h3 className="mb-3 font-bold text-primary text-sm uppercase tracking-wider">Learning Journey</h3>
         <h1 className="font-bold text-white text-4xl md:text-5xl">
